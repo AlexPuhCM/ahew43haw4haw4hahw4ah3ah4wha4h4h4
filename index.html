@@ -1,36 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Scaled Copilot Chat</title>
+  <meta charset="UTF-8" />
+  <title>Copilot Chat - Universal Embed</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       background-color: #111;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      font-family: sans-serif;
+      color: white;
       height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
-    .scale-container {
-      width: 390px;
-      height: 844px;
-      transform: scale(0.8); /* shrink entire thing */
-      transform-origin: top left;
+
+    .outer-container {
+      width: 100%;
+      max-width: 420px; /* simulate phone width */
+      height: 95vh;
+      position: relative;
       overflow: hidden;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      transform: scale(0.9);
+      transform-origin: top center;
     }
+
     iframe {
       width: 100%;
       height: 100%;
       border: none;
     }
+
+    .tts-controls {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: row;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .tts-controls input {
+      width: 260px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 14px;
+    }
+
+    .tts-controls button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border: none;
+      border-radius: 6px;
+      background: #1e90ff;
+      color: white;
+      cursor: pointer;
+    }
+
+    .tts-controls button:hover {
+      background: #0070dd;
+    }
   </style>
 </head>
 <body>
-  <div class="scale-container">
+
+  <div class="outer-container">
     <iframe src="https://copilotstudio.microsoft.com/environments/Default-1daee18e-6865-40a4-b4e2-e76588c8d596/bots/crc51_powersportsBikeAgent/webchat?__version__=2"></iframe>
   </div>
+
+  <div class="tts-controls">
+    <input type="text" id="ttsText" placeholder="Enter text to speak..." />
+    <button onclick="speak()">🔊 Speak</button>
+  </div>
+
+  <script>
+    function speak() {
+      const text = document.getElementById("ttsText").value;
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'en-US';
+      utterance.rate = 1;
+      window.speechSynthesis.speak(utterance);
+    }
+  </script>
+
 </body>
 </html>
