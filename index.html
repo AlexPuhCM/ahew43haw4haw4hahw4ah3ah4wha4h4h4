@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Copilot Phone View</title>
+  <title>Scaled Copilot Chat</title>
   <style>
     body {
       margin: 0;
@@ -12,15 +12,14 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-    }
-    .phone-container {
-      width: 390px;   /* iPhone 14 width */
-      height: 844px;  /* iPhone 14 height */
-      border: 1px solid #ccc;
-      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      background-color: white;
+    }
+    .scale-container {
+      width: 390px;
+      height: 844px;
+      transform: scale(0.8); /* shrink entire thing */
+      transform-origin: top left;
+      overflow: hidden;
     }
     iframe {
       width: 100%;
@@ -30,7 +29,7 @@
   </style>
 </head>
 <body>
-  <div class="phone-container">
+  <div class="scale-container">
     <iframe src="https://copilotstudio.microsoft.com/environments/Default-1daee18e-6865-40a4-b4e2-e76588c8d596/bots/crc51_powersportsBikeAgent/webchat?__version__=2"></iframe>
   </div>
 </body>
