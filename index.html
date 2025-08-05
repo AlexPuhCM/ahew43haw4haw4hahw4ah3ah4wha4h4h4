@@ -2,113 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Anonymous Copilot Chat</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <script src="https://cdn.botframework.com/botframework-webchat/latest/webchat.js"></script>
-
+  <title>Copilot Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      background-color: #111;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: sans-serif;
-      color: white;
+      background: #000;
     }
 
-    #webchat {
+    iframe {
+      border: none;
       width: 100%;
-      max-width: 420px;
-      height: 90vh;
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.4);
-      overflow: hidden;
-    }
-
-    .tts-controls {
-      margin-top: 10px;
-      display: flex;
-      gap: 6px;
-    }
-
-    .tts-controls input {
-      width: 260px;
-      padding: 6px 10px;
-      border-radius: 6px;
-      border: none;
-    }
-
-    .tts-controls button {
-      padding: 6px 12px;
-      font-size: 14px;
-      border: none;
-      border-radius: 6px;
-      background: #1e90ff;
-      color: white;
-      cursor: pointer;
-    }
-
-    .tts-controls button:hover {
-      background: #0070dd;
+      height: 100%;
     }
   </style>
 </head>
 <body>
-
-  <div id="webchat">Loading chat...</div>
-
-  <div class="tts-controls">
-    <input type="text" id="ttsText" placeholder="Enter text to speak..." />
-    <button onclick="speak()">🔊 Speak</button>
-  </div>
-
-  <script>
-    async function startChat() {
-      try {
-        const res = await fetch('https://default1daee18e686540a4b4e2e76588c8d5.96.environment.api.powerplatform.com/copilotstudio/dataverse-backed/authenticated/bots/crc51_powersportsBikeAgent/conversations?api-version=2022-03-01-preview', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-
-        const { token } = await res.json();
-
-        if (!token) throw new Error('No token returned from Copilot API');
-
-        window.WebChat.renderWebChat({
-          directLine: window.WebChat.createDirectLine({ token }),
-          userID: 'user_' + Math.random().toString(36).substring(7),
-          styleOptions: {
-            botAvatarInitials: 'Bot',
-            userAvatarInitials: 'You',
-            bubbleBackground: '#e5e5ea',
-            bubbleTextColor: '#000',
-            backgroundColor: '#fff'
-          }
-        }, document.getElementById('webchat'));
-
-      } catch (err) {
-        document.getElementById('webchat').innerText = 'Failed to load chat: ' + err.message;
-        console.error('Chat load error:', err);
-      }
-    }
-
-    function speak() {
-      const text = document.getElementById("ttsText").value;
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'en-US';
-      utterance.rate = 1;
-      window.speechSynthesis.speak(utterance);
-    }
-
-    startChat();
-  </script>
-
+  <iframe 
+    src="https://copilotstudio.microsoft.com/environments/Default-1daee18e-6865-40a4-b4e2-e76588c8d596/bots/crc51_powersportsBikeAgent/webchat?__version__=2"
+    allow="microphone; camera"
+  ></iframe>
 </body>
 </html>
